@@ -1,4 +1,4 @@
-// Récupérer le chemin de la page actuelle
+// Récupérer le chemin de la page actuelle //
 const currentPagePath = window.location.pathname;
 
 // Charger le Navbar sur toutes les pages sauf index.html
