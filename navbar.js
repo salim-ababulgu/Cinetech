@@ -1,8 +1,8 @@
-// Récupérer le numéro de la page actuelle
-const currentPageNumber = window.location.pathname.match(/\d+/)[0];
+// Récupérer le chemin de la page actuelle
+const currentPagePath = window.location.pathname;
 
-// Charger le Navbar sur toutes les pages sauf la page 1
-if (currentPageNumber !== "1") {
+// Charger le Navbar sur toutes les pages sauf index.html
+if (currentPagePath !== "/navbar.html") {
     fetch('navbar.html')
         .then(response => response.text())
         .then(data => {
