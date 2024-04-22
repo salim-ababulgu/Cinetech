@@ -31,13 +31,6 @@
     }
   }
   
-  // Fonction pour afficher les détails du film
-  async function displayMovieDetails() {
-    const movieDetailsContainer = document.getElementById('movie-details');
-
-    // Récupérer les détails du film
-    const movieDetails = await fetchMovieDetails(movieId);
-
   // Fonction pour récupérer les noms des réalisateurs
 async function getDirectors(movieDetails) {
     if (movieDetails && movieDetails.credits && movieDetails.credits.crew && movieDetails.credits.crew.length > 0) {
@@ -91,21 +84,48 @@ function getProductionCountries(movieDetails) {
     }
   }
 
-   // Afficher les détails du film dans le conteneur
-  if (movieDetails) {
-    movieDetailsContainer.innerHTML = `
-      <h2>${movieDetails.title}</h2>
-      <p><strong>Description :</strong> ${movieDetails.overview}</p>
-      <p><strong>Date de sortie :</strong> ${movieDetails.release_date}</p>
-      <p><strong>Réalisateur :</strong> ${await getDirectors(movieDetails)}</p>
-      <p><strong>Acteurs :</strong> ${await getActors(movieDetails)}</p>
-      <p><strong>Types :</strong> ${getGenres(movieDetails)}</p>
-      <p><strong>Pays d'origine :</strong> ${getProductionCountries(movieDetails)}</p>
-    `;
-  } else {
-    movieDetailsContainer.innerHTML = "<p>Les détails de ce film ne sont pas disponibles pour le moment.</p>";
-  }
+ // Fonction pour afficher les détails du film
+async function displayMovieDetails() {
+    const movieDetailsContainer = document.getElementById('movie-details');
+
+    // Récupérer l'identifiant du film depuis l'URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const movieId = urlParams.get('movieId');
+
+    // Récupérer les détails du film
+    const movieDetails = await fetchMovieDetails(movieId);
+    console.log('Movie Details:', movieDetails); // Vérifiez les détails du film dans la console du navigateur
+
+    // Afficher les détails du film dans le conteneur
+    if (movieDetails) {
+        const baseUrl = 'https://image.tmdb.org/t/p/';
+        const posterUrl = `${baseUrl}${movieDetails.poster_path}`;
+        console.log('Poster URL:', posterUrl); // Vérifiez l'URL de l'affiche dans la console du navigateur
+
+        const directors = await getDirectors(movieDetails);
+        console.log('Directors:', directors); // Vérifiez les réalisateurs dans la console du navigateur
+
+        const actors = await getActors(movieDetails);
+        console.log('Actors:', actors); // Vérifiez les acteurs dans la console du navigateur
+
+        const genres = getGenres(movieDetails);
+        const productionCountries = getProductionCountries(movieDetails);
+
+        // Création de la structure HTML pour afficher les détails
+        movieDetailsContainer.innerHTML = `
+            <h2>${movieDetails.title}</h2>
+            <img src="${posterUrl}" alt="${movieDetails.title} Poster">
+            <p><strong>Description :</strong> ${movieDetails.overview}</p>
+            <p><strong>Date de sortie :</strong> ${movieDetails.release_date}</p>
+            <p><strong>Réalisateur :</strong> ${directors}</p>
+            <p><strong>Acteurs :</strong> ${actors}</p>
+            <p><strong>Genres :</strong> ${genres}</p>
+            <p><strong>Pays d'origine :</strong> ${productionCountries}</p>
+        `;
+    } else {
+        movieDetailsContainer.innerHTML = "<p>Les détails de ce film ne sont pas disponibles pour le moment.</p>";
+    }
 }
 
-  // Charger les détails du film lors du chargement initial de la page
-  displayMovieDetails();
+// Charger les détails du film lors du chargement initial de la page
+displayMovieDetails();

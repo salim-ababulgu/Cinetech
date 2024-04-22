@@ -51,7 +51,6 @@ async function displayMovies(page) {
   updatePagination(moviesData.total_pages, page);
 }
 
-
 // Fonction pour mettre à jour la pagination
 function updatePagination(totalPages, currentPage) {
   const pagination = document.getElementById('pagination');
