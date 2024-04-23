@@ -14,7 +14,7 @@ async function fetchSeriesDetails(seriesId) {
   };
 
   try {
-    const response = await fetch(`https://api.themoviedb.org/3/tv/${seriesId}?language=en-US`, options);
+    const response = await fetch(`https://api.themoviedb.org/3/tv/${seriesId}?language=fr-FR`, options);
     const data = await response.json();
     return data;
   } catch (error) {
@@ -32,7 +32,7 @@ async function fetchSeriesCredits(seriesId) {
     };
   
     try {
-      const response = await fetch(`https://api.themoviedb.org/3/tv/${seriesId}/credits?language=en-US`, options);
+      const response = await fetch(`https://api.themoviedb.org/3/tv/${seriesId}/credits?language=fr-FR`, options);
       const data = await response.json();
       return data;
     } catch (error) {
@@ -51,7 +51,7 @@ async function fetchSeriesCredits(seriesId) {
     };
   
     try {
-      const response = await fetch(`https://api.themoviedb.org/3/tv/${seriesId}/similar?language=en-US&page=1`, options);
+      const response = await fetch(`https://api.themoviedb.org/3/tv/${seriesId}/similar?language=fr-FR&page=1`, options);
       const data = await response.json();
       if (data.results && data.results.length > 0) {
         const similarSeries = data.results.slice(0, limit).map(serie => ({
@@ -163,17 +163,19 @@ async function displaySeriesDetails() {
       const similarSeries = await fetchSimilarSeries(seriesId, 10);
       console.log('Similar Series:', similarSeries); // Vérifiez les séries similaires dans la console du navigateur
   
-      // Créer les cartes Bootstrap pour afficher les séries similaires
-      const similarSeriesHTML = similarSeries.map(serie => `
-        <div class="col-lg-2 col-md-4 col-sm-6 mb-4">
-          <div class="card">
-            <img src="${serie.posterPath ? serie.posterPath : 'https://via.placeholder.com/300x450'}" class="card-img-top" alt="Poster de la série ${serie.name}">
-            <div class="card-body">
-              <h5 class="card-title">${serie.name}</h5>
-            </div>
-          </div>
-        </div>
-      `).join('');
+     
+      // Dans la boucle pour générer les cartes des séries similaires
+const similarSeriesHTML = similarSeries.map(serie => `
+<div class="col-lg-3 col-md-4 col-sm-6 mb-4"> <!-- Ajustement des classes pour rendre les cartes plus grandes -->
+  <div class="card">
+    <img class="similar-series-image img-fluid" src="${serie.posterPath ? serie.posterPath : 'https://via.placeholder.com/300x450'}" class="card-img-top" alt="Poster de la série ${serie.name}">
+    <div class="card-body">
+      <h5 class="card-title">${serie.name}</h5>
+    </div>
+  </div>
+</div>
+`).join('');
+
   
       // Insérer les cartes dans le conteneur des séries similaires avec une barre de défilement horizontale
       seriesDetailsContainer.innerHTML = `

@@ -12,7 +12,7 @@ const options = {
   // Fonction pour récupérer les données des séries populaires depuis l'API
   async function fetchPopularSeries(page) {
     try {
-      const response = await fetch(`https://api.themoviedb.org/3/tv/popular?language=en-US&page=${page}`, options);
+      const response = await fetch(`https://api.themoviedb.org/3/tv/popular?language=fr-FR&page=${page}`, options);
       const data = await response.json();
       return data;
     } catch (error) {
