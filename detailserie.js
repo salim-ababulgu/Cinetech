@@ -105,13 +105,13 @@ function getSeriesProductionCountries(seriesDetails) {
   }
   
   // Fonction pour récupérer le réalisateur de la série
-  async function getSeriesDirector(seriesId) {
+async function getExecutiveProducer(seriesId) {
     try {
       const seriesCredits = await fetchSeriesCredits(seriesId);
       if (seriesCredits && seriesCredits.crew && seriesCredits.crew.length > 0) {
-        const director = seriesCredits.crew.find(member => member.job === 'Director');
-        if (director) {
-          return director.name;
+        const executiveProducer = seriesCredits.crew.find(member => member.job === 'Executive Producer');
+        if (executiveProducer) {
+          return executiveProducer.name;
         } else {
           return "Information non disponible";
         }
@@ -119,15 +119,13 @@ function getSeriesProductionCountries(seriesDetails) {
         return "Information non disponible";
       }
     } catch (error) {
-      console.error('Erreur lors de la récupération du réalisateur :', error);
+      console.error('Erreur lors de la récupération de l\'Executive Producer :', error);
       return "Information non disponible";
     }
   }
   
-
-
-// Fonction pour afficher les détails de la série, y compris le réalisateur et l'affiche de la série
-async function displaySeriesDetails() {
+  // Fonction pour afficher les détails de la série, y compris l'Executive Producer et l'affiche de la série
+  async function displaySeriesDetails() {
     const seriesDetailsContainer = document.getElementById('series-details');
   
     // Récupérer l'identifiant de la série depuis l'URL
@@ -135,15 +133,8 @@ async function displaySeriesDetails() {
     const seriesId = urlParams.get('seriesId');
   
     // Récupérer les détails de la série
-    let seriesDetails; // Déclarer seriesDetails avec let
-    try {
-      seriesDetails = await fetchSeriesDetails(seriesId);
-      console.log('Series Details:', seriesDetails); // Vérifiez les détails de la série dans la console du navigateur
-    } catch (error) {
-      console.error('Erreur lors de la récupération des détails de la série :', error);
-      seriesDetailsContainer.innerHTML = "<p>Les détails de cette série ne sont pas disponibles pour le moment.</p>";
-      return; // Sortir de la fonction si une erreur se produit
-    }
+    const seriesDetails = await fetchSeriesDetails(seriesId);
+    console.log('Series Details:', seriesDetails); // Vérifiez les détails de la série dans la console du navigateur
   
     // Afficher les détails de la série dans le conteneur
     if (seriesDetails) {
@@ -152,30 +143,28 @@ async function displaySeriesDetails() {
       const actors = await getActorsNames(seriesId, displayedActors);
       console.log('Actors:', actors); // Vérifiez les acteurs dans la console du navigateur
   
-      const genres = getSeriesGenres(seriesDetails); // Remplacer getGenres par getSeriesGenres
-      const productionCountries = getSeriesProductionCountries(seriesDetails); // Utiliser la fonction appropriée pour les pays d'origine
+      const genres = getSeriesGenres(seriesDetails);
+      const productionCountries = getSeriesProductionCountries(seriesDetails);
   
-      // Récupérer le réalisateur de la série
-      const director = await getSeriesDirector(seriesId);
-      console.log('Director:', director); // Vérifiez le réalisateur dans la console du navigateur
+      // Récupérer l'Executive Producer de la série
+      const executiveProducer = await getExecutiveProducer(seriesId);
+      console.log('Executive Producer:', executiveProducer); // Vérifiez l'Executive Producer dans la console du navigateur
   
       // Récupérer les séries similaires
       const similarSeries = await fetchSimilarSeries(seriesId, 10);
       console.log('Similar Series:', similarSeries); // Vérifiez les séries similaires dans la console du navigateur
   
-     
-      // Dans la boucle pour générer les cartes des séries similaires
-const similarSeriesHTML = similarSeries.map(serie => `
-<div class="col-lg-3 col-md-4 col-sm-6 mb-4"> <!-- Ajustement des classes pour rendre les cartes plus grandes -->
-  <div class="card">
-    <img class="similar-series-image img-fluid" src="${serie.posterPath ? serie.posterPath : 'https://via.placeholder.com/300x450'}" class="card-img-top" alt="Poster de la série ${serie.name}">
-    <div class="card-body">
-      <h5 class="card-title">${serie.name}</h5>
-    </div>
-  </div>
-</div>
-`).join('');
-
+      // Créer les cartes Bootstrap pour afficher les séries similaires
+      const similarSeriesHTML = similarSeries.map(serie => `
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4"> <!-- Ajustement des classes pour rendre les cartes plus grandes -->
+          <div class="card">
+            <img class="similar-series-image img-fluid" src="${serie.posterPath ? serie.posterPath : 'https://via.placeholder.com/300x450'}" class="card-img-top" alt="Poster de la série ${serie.name}">
+            <div class="card-body">
+              <h5 class="card-title">${serie.name}</h5>
+            </div>
+          </div>
+        </div>
+      `).join('');
   
       // Insérer les cartes dans le conteneur des séries similaires avec une barre de défilement horizontale
       seriesDetailsContainer.innerHTML = `
@@ -183,7 +172,7 @@ const similarSeriesHTML = similarSeries.map(serie => `
         <img src="https://image.tmdb.org/t/p/w500/${seriesDetails.poster_path}" alt="Poster de la série ${seriesDetails.name}">
         <p><strong>Description :</strong> ${seriesDetails.overview}</p>
         <p><strong>Date de première diffusion :</strong> ${seriesDetails.first_air_date}</p>
-        <p><strong>Réalisateur :</strong> ${director}</p>
+        <p><strong>Producteur :</strong> ${executiveProducer}</p>
         <p><strong>Acteurs :</strong> ${actors}</p>
         <p><strong>Genres :</strong> ${genres}</p>
         <p><strong>Pays d'origine :</strong> ${productionCountries}</p>
@@ -199,4 +188,3 @@ const similarSeriesHTML = similarSeries.map(serie => `
   
   // Charger les détails de la série lors du chargement initial de la page
   displaySeriesDetails();
-  
