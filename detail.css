@@ -32,3 +32,9 @@
     margin-bottom: auto; /* Pour maintenir le titre en haut */
     
 }
+
+h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 50px;
+}

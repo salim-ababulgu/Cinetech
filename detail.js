@@ -189,3 +189,4 @@ async function displayMovieDetails() {
 
 // Charger les détails du film lors du chargement initial de la page
 displayMovieDetails();
+
