@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liste des favoris</title>
+  <!-- Ajoutez vos liens vers les styles CSS et les scripts JavaScript -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h1 class="mt-4 mb-4">Liste des favoris</h1>
+    <div id="favorites-list" class="row"></div>
+  </div>
+
+  <script>
+    // Fonction pour récupérer les favoris depuis le stockage local
+    function getFavorites() {
+      return JSON.parse(localStorage.getItem('favorites')) || [];
+    }
+
+    // Fonction pour afficher les films favoris sur la page
+    function displayFavorites() {
+      const favoritesList = document.getElementById('favorites-list');
+      favoritesList.innerHTML = ''; // Clear previous favorites
+
+      const favorites = getFavorites();
+      favorites.forEach(movie => {
+        // Créez la carte Bootstrap pour chaque film favori
+        const card = document.createElement('div');
+        card.classList.add('col-md-4', 'mb-4');
+
+        card.innerHTML = `
+          <div class="card">
+            <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" class="card-img-top" alt="${movie.title}">
+            <div class="card-body">
+              <h5 class="card-title">${movie.title}</h5>
+              <p class="card-text">${movie.overview}</p>
+              <button class="btn btn-danger remove-from-favorites">Supprimer des favoris</button>
+            </div>
+          </div>
+        `;
+
+        const removeFromFavoritesButton = card.querySelector('.remove-from-favorites');
+        removeFromFavoritesButton.addEventListener('click', () => {
+          removeFavorite(movie.id); // Appeler la fonction pour supprimer le film des favoris
+          displayFavorites(); // Mettre à jour l'affichage après la suppression
+        });
+
+        favoritesList.appendChild(card);
+      });
+    }
+
+    // Fonction pour supprimer un film des favoris
+    function removeFavorite(movieId) {
+      let favorites = getFavorites();
+      favorites = favorites.filter(movie => movie.id !== movieId);
+      localStorage.setItem('favorites', JSON.stringify(favorites));
+    }
+
+    // Appeler la fonction pour afficher les favoris lors du chargement initial de la page
+    displayFavorites();
+  </script>
+</body>
+</html>

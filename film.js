@@ -20,6 +20,13 @@ async function fetchPopularMovies(page) {
   }
 }
 
+// Fonction pour ajouter un film aux favoris
+function addToFavorites(movie) {
+  let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+  favorites.push(movie);
+  localStorage.setItem('favorites', JSON.stringify(favorites));
+}
+
 // Fonction pour afficher les films sur la page
 async function displayMovies(page) {
   const moviesList = document.getElementById('movies-list');
@@ -28,8 +35,9 @@ async function displayMovies(page) {
   const moviesData = await fetchPopularMovies(page);
   const movies = moviesData.results;
 
-  // Création de la carte Bootstrap pour chaque film
+  // Ajouter un bouton "Ajouter aux favoris" à chaque film
   movies.forEach(movie => {
+    // Création de la carte Bootstrap pour chaque film
     const card = document.createElement('div');
     card.classList.add('col-md-4', 'mb-4');
 
@@ -40,9 +48,15 @@ async function displayMovies(page) {
           <h5 class="card-title">${movie.title}</h5>
           <p class="card-text">${movie.overview}</p>
           <a href="detail.html?movieId=${movie.id}" class="btn btn-primary">Détails</a>
+          <button class="btn btn-outline-primary add-to-favorites">Ajouter aux favoris</button>
         </div>
       </div>
     `;
+
+    const addToFavoritesButton = card.querySelector('.add-to-favorites');
+    addToFavoritesButton.addEventListener('click', () => {
+      addToFavorites(movie);
+    });
 
     moviesList.appendChild(card);
   });
