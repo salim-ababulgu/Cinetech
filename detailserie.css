@@ -1,0 +1,29 @@
+/* Style pour le conteneur des détails de la série */
+#series-details {
+    margin-top: 20px;
+}
+
+/* Style pour l'image de la série */
+#series-details img {
+    max-width: 300px; /* Taille maximale de l'image */
+    float: left; /* Alignement à gauche */
+    margin-right: 40px; /* Marge à droite pour l'espace entre l'image et le texte */
+    
+}
+
+/* Style pour les détails de la série */
+#series-details p {
+    margin-bottom: 10px; /* Marge en bas pour l'espace entre les paragraphes */
+}
+
+/* Style pour le titre */
+#series-title {
+    margin-bottom: auto; /* Pour maintenir le titre en haut */
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 50px;
+}
+
