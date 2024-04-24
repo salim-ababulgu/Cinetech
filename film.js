@@ -23,9 +23,16 @@ async function fetchPopularMovies(page) {
 // Fonction pour ajouter un film aux favoris
 function addToFavorites(movie) {
   let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+  // Vérifier si le film est déjà dans la liste des favoris
+  const isAlreadyAdded = favorites.some(favorite => favorite.id === movie.id);
+  if (isAlreadyAdded) {
+    alert("Ce film est déjà dans la liste de favoris.");
+    return; // Ne pas ajouter le film s'il est déjà dans la liste
+  }
   favorites.push(movie);
   localStorage.setItem('favorites', JSON.stringify(favorites));
 }
+
 
 // Fonction pour afficher les films sur la page
 async function displayMovies(page) {
