@@ -187,6 +187,90 @@ async function displayMovieDetails() {
 }
 }
 
+async function fetchMovieReviews(movieId) {
+  const options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMWNmODYyODdiMTY1YjM5NDM2ZWZjYTU0OTgxMWZlZiIsInN1YiI6IjY2MjYyZDNiYjI2ODFmMDFhOTc0YmE4MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.H0aSH9tT7Je3Lu3VawcUPx7v8vnShlKfqIgNFL_WnfI'
+    }
+  };
+
+  try {
+    const response = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/reviews?language=en-US&page=1`, options);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Erreur lors de la récupération des critiques du film :', error);
+    return null;
+  }
+}
+
+async function displayMovieDetails() {
+  const movieDetailsContainer = document.getElementById('movie-details');
+  const urlParams = new URLSearchParams(window.location.search);
+  const movieId = urlParams.get('movieId');
+  const movieDetails = await fetchMovieDetails(movieId);
+  const movieReviews = await fetchMovieReviews(movieId);
+  
+  if (movieDetails) {
+    // Récupérer les autres détails du film
+    const actors = await getActorsNames(movieId, displayedActors);
+    const genres = getGenres(movieDetails);
+    const productionCountries = getProductionCountries(movieDetails);
+    const director = await getDirector(movieId);
+    const similarMovies = await fetchSimilarMovies(movieId, 10);
+
+    // Affichage des détails du film
+    let detailsHTML = `
+      <h2>${movieDetails.title}</h2>
+      <img src="https://image.tmdb.org/t/p/w500/${movieDetails.poster_path}" alt="Poster du film ${movieDetails.title}">
+      <p><strong>Description :</strong> ${movieDetails.overview}</p>
+      <p><strong>Date de sortie :</strong> ${movieDetails.release_date}</p>
+      <p><strong>Réalisateur :</strong> ${director}</p>
+      <p><strong>Acteurs :</strong> ${actors}</p>
+      <p><strong>Genres :</strong> ${genres}</p>
+      <p><strong>Pays d'origine :</strong> ${productionCountries}</p>
+      <h3>Films similaires :</h3>
+      <div class="row flex-nowrap overflow-auto">
+        ${similarMovies.map(movie => `
+          <div class="col-lg-2 col-md-4 col-sm-6 mb-4">
+            <div class="card">
+              <img src="${movie.posterPath ? movie.posterPath : 'https://via.placeholder.com/300x450'}" class="card-img-top" alt="Poster du film ${movie.title}">
+              <div class="card-body">
+                <h5 class="card-title">${movie.title}</h5>
+              </div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+
+    // Affichage des critiques
+    let reviewsHTML = '';
+    if (movieReviews && movieReviews.results && movieReviews.results.length > 0) {
+      reviewsHTML = `
+        <div class="row mt-4">
+          <div class="col-12">
+            <h3>Critiques :</h3>
+            <ul class="list-group">
+              ${movieReviews.results.map(review => `<li class="list-group-item">${review.content}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+      `;
+    } else {
+      reviewsHTML = "<p class='mt-4'>Aucune critique disponible pour ce film.</p>";
+    }
+
+    // Insérer les détails et les critiques dans le conteneur
+    movieDetailsContainer.innerHTML = detailsHTML + reviewsHTML;
+  } else {
+    movieDetailsContainer.innerHTML = "<p>Les détails de ce film ne sont pas disponibles pour le moment.</p>";
+  }
+}
+
+
 // Charger les détails du film lors du chargement initial de la page
 displayMovieDetails();
 
