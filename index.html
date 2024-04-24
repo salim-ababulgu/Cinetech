@@ -12,169 +12,96 @@
 
 </head>
 
-<style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-  
-    .recherche {
-      cursor: pointer;
-    }
-  
-    .carousel-item img {
-      max-width: 100%; /* Limite la largeur de l'image à la taille de son conteneur */
-      max-height: 100vh; /* Limite la hauteur de l'image à la taille de la fenêtre du navigateur */
-      min-height: 100vh; /* Limite la hauteur de l'image à la taille de la fenêtre du navigateur */
-      width: auto; /* Ajuste la largeur de l'image en conséquence */
-      height: auto; /* Ajuste la hauteur de l'image en conséquence */
-      margin: 0 auto; /* Centre l'image horizontalement */
-      display: block; /* Assure que l'image est affichée en tant que bloc */
-      object-fit: cover; /* Ajuste l'image pour remplir la zone sans déformation */
-      object-position: center; /* Ce{ntre l'image horizontalement */
-  }
-  
-    .carousel-dark .carousel-indicators [data-bs-target] {
-      background-color: #fff;
-    }
-  
-    .nav-item:hover {
-      background-color: #F5DDC4;
-      border-radius: 5px;
-    } 
-  
-    .list-group-item:first-child {
-      font-weight: bold;
-      background-color: #F48E28;
-      color: #fff;
-    }
-  
-    .loupe:hover {
-      color: #F48E28;
-    } 
-  
-  </style>
-  
-  
-<body class="bg-dark">
-  <header>
-      <div id="navbar"></div>
-  </header>
-
-
-    <!-- Slider -->
-    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="https://via.placeholder.com/1920x1080" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-                <img src="https://via.placeholder.com/1920x1080" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-                <img src="https://via.placeholder.com/1920x1080" class="d-block w-100" alt="...">
-            </div>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#"><img src="./images/cinetech_logo.png" alt="Logo de Xilften" width="150px" height="auto"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Séries</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Films</a>
+                </li>
+                <!-- Ajoute d'autres liens de navigation ici -->
+            </ul>
+            <!-- Ajoute une barre de recherche ou un bouton de connexion ici -->
         </div>
     </div>
+</nav>
+  
 
-    <!-- Content -->
-    <div class="container mt-4">
-        <!-- Ligne 1 -->
-        <div class="row mb-4">
-            <div class="col">
-                <h2>Nos recomandation pour vous</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3 mb-4">
-                <!-- Card 1 -->
-                <div class="card">
-                    <img src="https://via.placeholder.com/300x400" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">lorem</h5>
-                        <p class="card-text">Description de la carte 1.</p>
-                    </div>
+
+    <!-- Landing Film / series -->
+    
+        <!-- <div class="container-fluid">
+            <div class="row">
+              <div class="md-lg-12">
+                <div class="carousel-item bg-vod">
+                  <img src="https://via.placeholder.com/1920x1080" class="d-block w-100 h-100vh" alt="...">
                 </div>
+              </div>
             </div>
-            <!-- Ajoute trois autres cartes ici -->
-        </div>
+        </div> -->
 
-        <!-- Ligne 2 -->
-        <div class="row mt-4 mb-4">
-            <div class="col">
-                <h2>Série du moment</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3 mb-4">
-                <!-- Card 1 -->
-                <div class="card">
-                    <img src="https://via.placeholder.com/300x400" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">lorem</h5>
-                        <p class="card-text">Description de la carte 1.</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Ajoute trois autres cartes ici -->
-        </div>
+    <!-- Section pour afficher les films -->
+    <section>
+      <div id="movies-list" style="width: 250px; height: 350px;">
+        <!-- Les cartes des films seront insérées ici -->
+      </div>
+    </section>
 
-        <!-- Ligne 3 -->
-        <div class="row mt-4 mb-4">
-            <div class="col">
-                <h2>Film du moment</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3 mb-4">
-                <!-- Card 1 -->
-                <div class="card">
-                    <img src="https://via.placeholder.com/300x400" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">lorem</h5>
-                        <p class="card-text">Description de la carte 1.</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Ajoute trois autres cartes ici -->
-        </div>
-  </div>
+    <!-- Section pour afficher les séries -->
+    <section>
+        <div id="series-list">
+          <!-- Les cartes des films seront insérées ici -->
+        </div> 
+    </section>
+  
 
+
+</body>
 <!-- Footer -->
 <footer class="footer mt-auto py-3 bg-dark text-white">
-    <div class="container text-center">
-        <span>© 2024 Mon Super Site de Streaming</span>
-    </div>
+  <div class="container text-center">
+      <span>© 2024 Mon Super Site de Streaming</span>
+  </div>
 </footer>
 
-<!-- Modal de recherche -->
-<div class="modal fade" id="modalDeRecherche" tabindex="-1" aria-labelledby="recherche_modal" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header gap-3">
-          <div class="border border-black rounded d-flex align-items-center justify-content-center w-100">
-            <input type="text" id="myInput" class="form-control border border-0 rounded-start" placeholder="Recherche...">
-            <button class="btn btn-outline-secondary rounded-end border border-0" type="button" id="searchButton">
-              <svg style="--bs-icon-link-transform: translate3d(0, -.125rem, 0);" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-              </svg>
-            </button>
-          </div>  
-        </div>
-        <div class="modal-body">
-          <!-- Message de recherche -->
-          <div id="searchMessage" class="search-message text-center fw-bold">Trouver le meilleur de nos série ou film</div>
-          <!-- Conteneur pour les éléments d'autocomplétion -->
-          <div id="autocompleteContainer" class="list-group mt-1"></div>
+      <!-- Modal de recherche -->
+      <div class="modal fade" id="modalDeRecherche" tabindex="-1" aria-labelledby="recherche_modal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header gap-3">
+              <div class="border border-black rounded d-flex align-items-center justify-content-center w-100">
+                <input type="text" id="myInput" class="form-control border border-0 rounded-start" placeholder="Recherche...">
+                <button class="btn btn-outline-secondary rounded-end border border-0" type="button" id="searchButton">
+                  <svg style="--bs-icon-link-transform: translate3d(0, -.125rem, 0);" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                  </svg>
+                </button>
+              </div>  
+            </div>
+            <div class="modal-body">
+              <!-- Message de recherche -->
+              <div id="searchMessage" class="search-message text-center fw-bold">Trouver le meilleur de nos série ou film</div>
+              <!-- Conteneur pour les éléments d'autocomplétion -->
+              <div id="autocompleteContainer" class="list-group mt-1"></div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  </body>
 
     <!-- Bootstrap JS (Optional) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
-<script type="module" src="./navbar.js"></script>
+<script type="module" src="./script.js"></script>
 </html>
