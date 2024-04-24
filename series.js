@@ -20,36 +20,59 @@ const options = {
     }
   }
   
-  // Fonction pour afficher les séries sur la page
-  async function displaySeries(page) {
-    const seriesList = document.getElementById('series-list');
-    seriesList.innerHTML = ''; // Clear previous series
-  
-    const seriesData = await fetchPopularSeries(page);
-    const series = seriesData.results;
-  
-    // Création de la carte Bootstrap pour chaque série
-    series.forEach(serie => {
-      const card = document.createElement('div');
-      card.classList.add('col-md-4', 'mb-4');
-  
-      card.innerHTML = `
-        <div class="card">
-          <img src="https://image.tmdb.org/t/p/w500${serie.poster_path}" class="card-img-top" alt="${serie.name}">
-          <div class="card-body">
-            <h5 class="card-title">${serie.name}</h5>
-            <p class="card-text">${serie.overview}</p>
-            <a href="detailserie.html?seriesId=${serie.id}" class="btn btn-primary">Détails</a>
-          </div>
+ // Fonction pour afficher les séries sur la page
+async function displaySeries(page) {
+  const seriesList = document.getElementById('series-list');
+  seriesList.innerHTML = ''; // Clear previous series
+
+  const seriesData = await fetchPopularSeries(page);
+  const series = seriesData.results;
+
+  // Création de la carte Bootstrap pour chaque série
+  series.forEach(serie => {
+    const card = document.createElement('div');
+    card.classList.add('col-md-4', 'mb-4');
+
+    card.innerHTML = `
+      <div class="card">
+        <img src="https://image.tmdb.org/t/p/w500${serie.poster_path}" class="card-img-top" alt="${serie.name}">
+        <div class="card-body">
+          <h5 class="card-title">${serie.name}</h5>
+          <p class="card-text">${serie.overview}</p>
+          <a href="detailserie.html?seriesId=${serie.id}" class="btn btn-secondary">Détails</a>
+          <button class="btn btn-primary add-to-favorites" data-id="${serie.id}">Ajouter aux favoris</button>
         </div>
-      `;
+      </div>
+    `;
+
+    seriesList.appendChild(card);
+  });
+
+  // Ajouter un gestionnaire d'événements pour chaque bouton "Ajouter aux favoris"
+  document.querySelectorAll('.add-to-favorites').forEach(button => {
+    button.addEventListener('click', addToFavorites);
+  });
+
+  // Mettre à jour la pagination
+  updatePagination(seriesData.total_pages, page);
+}
+
   
-      seriesList.appendChild(card);
+    // Ajouter un gestionnaire d'événements pour chaque bouton "Ajouter aux favoris"
+    document.querySelectorAll('.add-to-favorites').forEach(button => {
+      button.addEventListener('click', addToFavorites);
     });
-  
-    // Mettre à jour la pagination
-    updatePagination(seriesData.total_pages, page);
-  }
+
+        // Fonction pour ajouter une série aux favoris
+        function addToFavorites(event) {
+          const seriesId = event.target.dataset.id;
+          let favorites = JSON.parse(localStorage.getItem('seriesFavorites')) || [];
+          if (!favorites.includes(seriesId)) {
+            favorites.push(seriesId);
+            localStorage.setItem('seriesFavorites', JSON.stringify(favorites));
+          }
+        }
+    
   
   // Fonction pour mettre à jour la pagination
   function updatePagination(totalPages, currentPage) {
