@@ -123,6 +123,25 @@ async function getExecutiveProducer(seriesId) {
       return "Information non disponible";
     }
   }
+
+  async function fetchSeriesReviews(seriesId) {
+    const options = {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMWNmODYyODdiMTY1YjM5NDM2ZWZjYTU0OTgxMWZlZiIsInN1YiI6IjY2MjYyZDNiYjI2ODFmMDFhOTc0YmE4MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.H0aSH9tT7Je3Lu3VawcUPx7v8vnShlKfqIgNFL_WnfI'
+      }
+    };
+  
+    try {
+      const response = await fetch(`https://api.themoviedb.org/3/tv/${seriesId}/reviews?language=en-US&page=1`, options);
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Erreur lors de la récupération des critiques de la série :', error);
+      return null;
+    }
+  }
   
   // Fonction pour afficher les détails de la série, y compris l'Executive Producer et l'affiche de la série
   async function displaySeriesDetails() {
@@ -166,21 +185,50 @@ async function getExecutiveProducer(seriesId) {
         </div>
       `).join('');
   
-      // Insérer les cartes dans le conteneur des séries similaires avec une barre de défilement horizontale
-      seriesDetailsContainer.innerHTML = `
-        <h2>${seriesDetails.name}</h2>
-        <img src="https://image.tmdb.org/t/p/w500/${seriesDetails.poster_path}" alt="Poster de la série ${seriesDetails.name}">
-        <p><strong>Description :</strong> ${seriesDetails.overview}</p>
-        <p><strong>Date de première diffusion :</strong> ${seriesDetails.first_air_date}</p>
-        <p><strong>Producteur :</strong> ${executiveProducer}</p>
-        <p><strong>Acteurs :</strong> ${actors}</p>
-        <p><strong>Genres :</strong> ${genres}</p>
-        <p><strong>Pays d'origine :</strong> ${productionCountries}</p>
+      // Récupérer les critiques de la série
+      const seriesReviews = await fetchSeriesReviews(seriesId);
+  
+      // Affichage des détails de la série
+      let detailsHTML = `
+      <h2 class="animate__animated animate__fadeInDown">${seriesDetails.name}</h2>
+      <div class="row">
+        <div class="col-lg-6">
+          <img src="https://image.tmdb.org/t/p/w500/${seriesDetails.poster_path}" alt="Poster de la série ${seriesDetails.name}" class="animate__animated animate__bounceIn">
+        </div>
+        <div class="col-lg-6">
+          <p><strong>Description :</strong> ${seriesDetails.overview}</p>
+          <p><strong>Date de première diffusion :</strong> ${seriesDetails.first_air_date}</p>
+          <p><strong>Producteur :</strong> ${executiveProducer}</p>
+          <p><strong>Acteurs :</strong> ${actors}</p>
+          <p><strong>Genres :</strong> ${genres}</p>
+          <p><strong>Pays d'origine :</strong> ${productionCountries}</p>
+        </div>
+      </div>
         <h3>Séries similaires :</h3>
         <div class="row flex-nowrap overflow-auto">
           ${similarSeriesHTML}
         </div>
       `;
+  
+      // Affichage des critiques
+      let reviewsHTML = '';
+      if (seriesReviews && seriesReviews.results && seriesReviews.results.length > 0) {
+        reviewsHTML = `
+          <div class="row mt-4">
+            <div class="col-12">
+              <h3>Critiques :</h3>
+              <ul class="list-group">
+                ${seriesReviews.results.map(review => `<li class="list-group-item">${review.content}</li>`).join('')}
+              </ul>
+            </div>
+          </div>
+        `;
+      } else {
+        reviewsHTML = "<p class='mt-4'>Aucune critique disponible pour cette série.</p>";
+      }
+  
+      // Insérer les détails et les critiques dans le conteneur
+      seriesDetailsContainer.innerHTML = detailsHTML + reviewsHTML;
     } else {
       seriesDetailsContainer.innerHTML = "<p>Les détails de cette série ne sont pas disponibles pour le moment.</p>";
     }
@@ -188,3 +236,4 @@ async function getExecutiveProducer(seriesId) {
   
   // Charger les détails de la série lors du chargement initial de la page
   displaySeriesDetails();
+  

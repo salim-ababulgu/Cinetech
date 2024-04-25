@@ -187,24 +187,24 @@ async function displayMovieDetails() {
 }
 }
 
-async function fetchMovieReviews(movieId) {
-  const options = {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMWNmODYyODdiMTY1YjM5NDM2ZWZjYTU0OTgxMWZlZiIsInN1YiI6IjY2MjYyZDNiYjI2ODFmMDFhOTc0YmE4MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.H0aSH9tT7Je3Lu3VawcUPx7v8vnShlKfqIgNFL_WnfI'
-    }
-  };
+  async function fetchMovieReviews(movieId) {
+    const options = {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMWNmODYyODdiMTY1YjM5NDM2ZWZjYTU0OTgxMWZlZiIsInN1YiI6IjY2MjYyZDNiYjI2ODFmMDFhOTc0YmE4MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.H0aSH9tT7Je3Lu3VawcUPx7v8vnShlKfqIgNFL_WnfI'
+      }
+    };
 
-  try {
-    const response = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/reviews?language=en-US&page=1`, options);
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Erreur lors de la récupération des critiques du film :', error);
-    return null;
+    try {
+      const response = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/reviews?language=en-US&page=1`, options);
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Erreur lors de la récupération des critiques du film :', error);
+      return null;
+    }
   }
-}
 
 async function displayMovieDetails() {
   const movieDetailsContainer = document.getElementById('movie-details');
@@ -223,14 +223,21 @@ async function displayMovieDetails() {
 
     // Affichage des détails du film
     let detailsHTML = `
-      <h2>${movieDetails.title}</h2>
-      <img src="https://image.tmdb.org/t/p/w500/${movieDetails.poster_path}" alt="Poster du film ${movieDetails.title}">
-      <p><strong>Description :</strong> ${movieDetails.overview}</p>
-      <p><strong>Date de sortie :</strong> ${movieDetails.release_date}</p>
-      <p><strong>Réalisateur :</strong> ${director}</p>
-      <p><strong>Acteurs :</strong> ${actors}</p>
-      <p><strong>Genres :</strong> ${genres}</p>
-      <p><strong>Pays d'origine :</strong> ${productionCountries}</p>
+    <h2 class="animate__animated animate__fadeInDown">${movieDetails.title}</h2>
+    <div class="row">
+      <div class="col-lg-6">
+        <img src="https://image.tmdb.org/t/p/w500/${movieDetails.poster_path}" alt="Poster du film ${movieDetails.title}" class="animate__animated animate__bounceIn">
+      </div>
+      <div class="col-lg-6">
+        <p><strong>Description :</strong> ${movieDetails.overview}</p>
+        <p><strong>Date de sortie :</strong> ${movieDetails.release_date}</p>
+        <p><strong>Réalisateur :</strong> ${director}</p>
+        <p><strong>Acteurs :</strong> ${actors}</p>
+        <p><strong>Genres :</strong> ${genres}</p>
+        <p><strong>Pays d'origine :</strong> ${productionCountries}</p>
+      </div>
+    </div>
+    
       <h3>Films similaires :</h3>
       <div class="row flex-nowrap overflow-auto">
         ${similarMovies.map(movie => `

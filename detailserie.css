@@ -1,29 +1,40 @@
 /* Style pour le conteneur des détails de la série */
 #series-details {
-    margin-top: 20px;
+    margin-top: 40px;
 }
 
 /* Style pour l'image de la série */
 #series-details img {
-    max-width: 300px; /* Taille maximale de l'image */
-    float: left; /* Alignement à gauche */
-    margin-right: 40px; /* Marge à droite pour l'espace entre l'image et le texte */
-    
+    max-width: 100%;
+    display: block;
+    margin: 0 auto 20px; /* Centrer l'image et ajouter de l'espace en bas */
 }
 
 /* Style pour les détails de la série */
 #series-details p {
-    margin-bottom: 10px; /* Marge en bas pour l'espace entre les paragraphes */
+    margin-bottom: 15px;
+}
+
+/* Style pour les critiques */
+#series-details .list-group {
+    margin-bottom: 40px;
 }
 
 /* Style pour le titre */
-#series-title {
-    margin-bottom: auto; /* Pour maintenir le titre en haut */
-}
-
 h2 {
     text-align: center;
     margin-bottom: 40px;
-    font-size: 50px;
+    font-size: 36px;
+}
+
+/* Style pour les cartes de séries similaires */
+.similar-series-card {
+    max-width: 100px; /* Ajuster la largeur des cartes */
+    margin: 0 auto 20px; /* Centrer les cartes et ajouter de l'espace en bas */
+}
+
+.similar-series-card .card-title {
+    text-align: center;
+    margin-bottom: 0;
 }
 
