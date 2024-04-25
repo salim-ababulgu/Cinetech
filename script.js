@@ -292,21 +292,11 @@ document.getElementById('myInput').addEventListener('input', async (event) => {
     searchResultsContainer.innerHTML = '<p>Aucun résultat trouvé.</p>';
 }
 
-
-
-
     } else {
         const searchResultsContainer = document.getElementById('searchResults');
         searchResultsContainer.innerHTML = ''; // Effacer le contenu si le champ de recherche est vide
     }
 });
-
-
-
-
-
-
-
 
 // Charger les films et les séries de la première page lors du chargement initial
 displayMovies(currentPageMovies);
