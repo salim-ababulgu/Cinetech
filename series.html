@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Popular TV Series</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="series.css">
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="mb-4">Liste des séries populaires</h1>
+
+    <!-- Series List -->
+    <div id="series-list" class="row"></div>
+
+    <!-- Pagination -->
+    <nav aria-label="Page navigation">
+      <ul id="pagination" class="pagination justify-content-center mt-4"></ul>
+    </nav>
+  </div>
+
+  <!-- Bootstrap JS and your custom JS -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+  <script src="series.js"></script> <!-- Replace "your_script.js" with the filename where your JavaScript code resides -->
+  <script src="detailserie.js"></script>
+</body>
+</html>
