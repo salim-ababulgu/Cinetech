@@ -206,6 +206,75 @@ async function displayMovieDetails() {
     }
   }
 
+  // JavaScript pour afficher/masquer le formulaire de réponse
+document.querySelectorAll('.reply-btn').forEach(button => {
+  button.addEventListener('click', () => {
+      const replyForm = button.nextElementSibling;
+      replyForm.style.display = (replyForm.style.display === 'none' || replyForm.style.display === '') ? 'block' : 'none';
+  });
+});
+
+// JavaScript pour soumettre une réponse
+document.querySelectorAll('.submit-reply-btn').forEach(button => {
+  button.addEventListener('click', () => {
+      const replyTextarea = button.previousElementSibling;
+      const replyContent = replyTextarea.value;
+      // Envoyer la réponse au serveur ou effectuer d'autres actions nécessaires
+      // Par exemple, vous pouvez envoyer une requête AJAX pour enregistrer la réponse dans la base de données
+      console.log('Réponse soumise:', replyContent);
+      // Effacer le contenu du champ de réponse après soumission
+      replyTextarea.value = '';
+  });
+});
+
+// Fonction pour envoyer une réponse à un commentaire
+async function submitCommentReply(commentId, replyContent) {
+  const options = {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMWNmODYyODdiMTY1YjM5NDM2ZWZjYTU0OTgxMWZlZiIsInN1YiI6IjY2MjYyZDNiYjI2ODFmMDFhOTc0YmE4MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.H0aSH9tT7Je3Lu3VawcUPx7v8vnShlKfqIgNFL_WnfI' // Remplacez par votre jeton API
+      },
+      body: JSON.stringify({
+          content: replyContent
+      })
+  };
+
+  try {
+      const response = await fetch(`https://api.themoviedb.org/3/movie/${commentId}/reviews?language=en-US&page=1`, options);
+      const data = await response.json();
+      return data;
+  } catch (error) {
+      console.error('Erreur lors de l\'envoi de la réponse au commentaire :', error);
+      return null;
+  }
+}
+
+// Gestionnaire d'événement pour soumettre une réponse à un commentaire
+document.querySelectorAll('.submit-reply-btn').forEach(button => {
+  button.addEventListener('click', async () => {
+      const replyTextarea = button.previousElementSibling;
+      const replyContent = replyTextarea.value.trim();
+      if (replyContent !== '') {
+          const commentId = button.dataset.commentId; // Ajoutez un attribut data-comment-id à vos boutons de soumission de réponse pour stocker l'identifiant du commentaire parent
+          const response = await submitCommentReply(commentId, replyContent);
+          if (response) {
+              // Si la réponse est soumise avec succès, vous pouvez actualiser la page ou effectuer d'autres actions nécessaires
+              console.log('Réponse soumise avec succès :', response);
+              // Réactualiser la page pour afficher la réponse ajoutée
+              window.location.reload();
+          } else {
+              // Gérer les erreurs en cas d'échec de la soumission de la réponse
+              console.error('Échec de la soumission de la réponse.');
+          }
+      } else {
+          // Afficher un message d'erreur si le champ de réponse est vide
+          console.error('Le contenu de la réponse ne peut pas être vide.');
+      }
+  });
+});
+
+
 async function displayMovieDetails() {
   const movieDetailsContainer = document.getElementById('movie-details');
   const urlParams = new URLSearchParams(window.location.search);
@@ -223,10 +292,10 @@ async function displayMovieDetails() {
 
     // Affichage des détails du film
     let detailsHTML = `
-    <h2 class="animate__animated animate__fadeInDown">${movieDetails.title}</h2>
+    <h2 class="animate__animated animate__fadeInDown" data-aos="fade-up">${movieDetails.title}</h2>
     <div class="row">
       <div class="col-lg-6">
-        <img src="https://image.tmdb.org/t/p/w500/${movieDetails.poster_path}" alt="Poster du film ${movieDetails.title}" class="animate__animated animate__bounceIn">
+        <img src="https://image.tmdb.org/t/p/w500/${movieDetails.poster_path}" alt="Poster du film ${movieDetails.title}" class="animate__animated animate__bounceIn" data-aos="fade-right">
       </div>
       <div class="col-lg-6">
         <p><strong>Description :</strong> ${movieDetails.overview}</p>
@@ -238,8 +307,8 @@ async function displayMovieDetails() {
       </div>
     </div>
     
-      <h3>Films similaires :</h3>
-      <div class="row flex-nowrap overflow-auto">
+      <h3 data-aos="fade-up">Films similaires :</h3>
+      <div class="row flex-nowrap overflow-auto" data-aos="fade-up">
         ${similarMovies.map(movie => `
           <div class="col-lg-2 col-md-4 col-sm-6 mb-4">
             <div class="card">
@@ -257,17 +326,17 @@ async function displayMovieDetails() {
     let reviewsHTML = '';
     if (movieReviews && movieReviews.results && movieReviews.results.length > 0) {
       reviewsHTML = `
-        <div class="row mt-4">
+        <div class="row mt-4" data-aos="fade-up">
           <div class="col-12">
             <h3>Critiques :</h3>
             <ul class="list-group">
-              ${movieReviews.results.map(review => `<li class="list-group-item">${review.content}</li>`).join('')}
+              ${movieReviews.results.map(review => `<li class="list-group-item" data-aos="fade-up">${review.content}</li>`).join('')}
             </ul>
           </div>
         </div>
       `;
     } else {
-      reviewsHTML = "<p class='mt-4'>Aucune critique disponible pour ce film.</p>";
+      reviewsHTML = "<p class='mt-4' data-aos='fade-up'>Aucune critique disponible pour ce film.</p>";
     }
 
     // Insérer les détails et les critiques dans le conteneur
@@ -280,4 +349,3 @@ async function displayMovieDetails() {
 
 // Charger les détails du film lors du chargement initial de la page
 displayMovieDetails();
-
