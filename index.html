@@ -10,61 +10,145 @@
     <!-- icon bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="style.css">
+
 </head>
 
-<body>
+<header>
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand" href="#"><img src="./images/cinetech_logo.png" alt="Logo de Xilften" width="150px" height="auto"></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+  <nav class="navbar navbar-expand-lg bg-blur fixed-top border-bottom border-dark liste_de_navigation">
+    <div class="container d-flex align-items-center justify-content-between">
+      
+      <div class="d-flex align-items-center">
+
+        <!-- Image de profil d'utilisateur -->
+        <div class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="./images/none-user-sign.png" class="img-thumbnail rounded-circle" style="width: 30px;" alt="photo de profil de l'utilisateur">
+          </a>
+          <ul class="dropdown-menu border border-light bg-dark">
+            <li><a class="dropdown-item bg-black text-light" href="#">Mon compte</a></li>
+            <li><a class="dropdown-item bg-black text-light" href="#">Paramétre</a></li>
+            <li><a class="dropdown-item bg-black text-light" href="#">Déconnexion</a></li>
+          </ul>
+        </div>
+
+          <!-- Navbar Responsive  -->
+          <button class="navbar-toggler border-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-list text-light"></i>
+          </button>
+
+          <!-- Liens du Navbar -->
+          <div class="collapse navbar-collapse text-light" id="navbarNav">
+            <ul class="navbar-nav me-auto navigation_un">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Accueil</a>
+                    <a class="nav-link fw-bold text-light active" aria-current="page" href="./index.html">Accueil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Séries</a>
+                    <a class="nav-link text-light" href="./recette.html">Films</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Films</a>
+                    <a class="nav-link text-light" href="./favoris.html">Séries</a>
                 </li>
-                <!-- Ajoute d'autres liens de navigation ici -->
             </ul>
-            <!-- Ajoute une barre de recherche ou un bouton de connexion ici -->
+          </div>
+
+          <!-- Icon recherche dans une modal -->
+          <div class="recherche mx-3 my-3">
+            <i class="loupe bi bi-search text-light" data-bs-toggle="modal" data-bs-target="#modalDeRecherche"></i>
+          </div>
+      </div>
+
+      <!-- Navigation list 2 s'affiche qu'en responsive -->
+      <div class="collapse navbar-collapse text-light navigation_deux_parent" id="navbarNav">
+        <ul class="navbar-nav me-auto navigation_deux">
+            <li class="nav-item">
+                <a class="nav-link fw-bold text-light active" aria-current="page" href="./index.html">Accueil</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" href="./recette.html">Films</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" href="./favoris.html">Séries</a>
+            </li>
+        </ul>
+
+        
+      </div>
+
+      <!-- Logo -->
+      <div class="navbar-brand" href="#">
+        <img src="./images/cinetech_logo.png" alt="Logo" style="width: 100px;">
+    </div>
+    </div>
+  </nav>
+</header>
+<body class="bg-black bg-gradient">
+
+  
+<!-- Section pour afficher les films et séries aléatoires -->
+<div class="container-fluid">
+  <div class="row bloc_parent">
+    <!-- Bloc 1 pour l'image -->
+    <div class="col-md-5 w-50 bloc_un flex-grow-1 d-flex align-items-center justify-content-center">
+      
+    </div>
+    <!-- Bloc 2 pour le texte -->
+    <div class="col-md-5 w-50 border-none flex-grow-1 h-100 text-light">
+      <h5 id="random-media-title" class="card-title h-100 fs-1"></h5>
+      <p id="random-media-overview" class="card-text h-100"></p>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Section pour afficher les films / séries populaire -->
+  <section class="m-5">
+    <div class="container">
+        <div  class="text-light d-flex align-items-center justify-content-between">
+          <h1>TENDACES ACTUELLE</h1>
+          <a href="#" class="text-light">Découvrire plus<i class="bi bi-arrow-right-short"></i></a>
+        </div>
+        <div class="row row-cols-sm-1 row-cols-md-1 row-cols-lg-2 row-cols-xl-4 row-cols-xxl-4 g-4" id="popular-media-list">
+          <div class="col">
+            <!-- Les cartes des films seront insérées ici -->
+          </div>
         </div>
     </div>
-</nav>
-  
+  </section>
 
 
-    <!-- Landing Film / series -->
-    
-        <!-- <div class="container-fluid">
-            <div class="row">
-              <div class="md-lg-12">
-                <div class="carousel-item bg-vod">
-                  <img src="https://via.placeholder.com/1920x1080" class="d-block w-100 h-100vh" alt="...">
-                </div>
-              </div>
-            </div>
-        </div> -->
 
-    <!-- Section pour afficher les films -->
-    <section>
-      <div id="movies-list" style="width: 250px; height: 350px;">
-        <!-- Les cartes des films seront insérées ici -->
+<!-- Section pour afficher les films -->
+<section class="m-5">
+  <div class="container">
+      <div  class="text-light d-flex align-items-center justify-content-between">
+        <h1>FILM</h1>
+        <a href="#" class="text-light">Découvrire plus<i class="bi bi-arrow-right-short"></i></a>
       </div>
-    </section>
-
-    <!-- Section pour afficher les séries -->
-    <section>
-        <div id="series-list">
+      <div class="row row-cols-sm-1 row-cols-md-1 row-cols-lg-2 row-cols-xl-4 row-cols-xxl-4 g-4" id="movies-list">
+        <div class="col">
           <!-- Les cartes des films seront insérées ici -->
-        </div> 
-    </section>
+        </div>
+      </div>
+  </div>
+</section>
+
+
+<!-- Section pour afficher les séries -->
+<section class="m-5">
+  <div class="container">
+    <div  class="text-light d-flex align-items-center justify-content-between">
+      <h1>SERIES</h1>
+      <a href="#" class="text-light">Découvrire plus<i class="bi bi-arrow-right-short"></i></a>
+    </div>
+      <div class="row row-cols-sm-1 row-cols-md-1 row-cols-lg-1 row-cols-xl-4 row-cols-xxl-2 g-4" id="series-list">
+          <!-- Les cartes des séries seront insérées ici -->
+      </div>
+  </div>
+</section>
+
+
   
 
 
@@ -77,28 +161,28 @@
 </footer>
 
       <!-- Modal de recherche -->
-      <div class="modal fade" id="modalDeRecherche" tabindex="-1" aria-labelledby="recherche_modal" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header gap-3">
-              <div class="border border-black rounded d-flex align-items-center justify-content-center w-100">
-                <input type="text" id="myInput" class="form-control border border-0 rounded-start" placeholder="Recherche...">
-                <button class="btn btn-outline-secondary rounded-end border border-0" type="button" id="searchButton">
-                  <svg style="--bs-icon-link-transform: translate3d(0, -.125rem, 0);" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                  </svg>
-                </button>
-              </div>  
-            </div>
-            <div class="modal-body">
-              <!-- Message de recherche -->
-              <div id="searchMessage" class="search-message text-center fw-bold">Trouver le meilleur de nos série ou film</div>
-              <!-- Conteneur pour les éléments d'autocomplétion -->
-              <div id="autocompleteContainer" class="list-group mt-1"></div>
-            </div>
-          </div>
-        </div>
+<div class="modal fade" id="modalDeRecherche" tabindex="-1" aria-labelledby="recherche_modal" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header gap-3">
+        <div class="border border-black rounded d-flex align-items-center justify-content-center w-100">
+          <input type="text" id="myInput" class="form-control border border-0 rounded-start" placeholder="Recherche...">
+          <button class="btn btn-outline-secondary rounded-end border border-0" type="button" id="searchButton">
+            <svg style="--bs-icon-link-transform: translate3d(0, -.125rem, 0);" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+            </svg>
+          </button>
+        </div>  
       </div>
+      <div class="modal-body" id="searchResults"> 
+        <!-- Message de recherche -->
+        <div id="searchMessage" class="search-message text-center fw-bold text-tangerin">Rechercher une recette en tapant le nom ou son ingrédient</div>
+        <!-- Conteneur pour les éléments d'autocomplétion -->
+        <div id="autocompleteContainer" class="list-group mt-1"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
     <!-- Bootstrap JS (Optional) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
