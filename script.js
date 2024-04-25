@@ -247,8 +247,8 @@ async function searchMoviesAndSeries(query) {
     }
 }
 
-// Fonction pour effectuer une recherche en temps réel à chaque frappe de clavier
-// Fonction pour effectuer une recherche en temps réel à chaque frappe de clavier
+
+// Fonction pour effectuer une recherche en temps réel à chaque frappe de clavier un film ou séries
 document.getElementById('myInput').addEventListener('input', async (event) => {
     const searchTerm = event.target.value.trim(); // Récupérer le terme de recherche
 
@@ -291,6 +291,9 @@ document.getElementById('myInput').addEventListener('input', async (event) => {
         } else {
     searchResultsContainer.innerHTML = '<p>Aucun résultat trouvé.</p>';
 }
+
+
+
 
     } else {
         const searchResultsContainer = document.getElementById('searchResults');
