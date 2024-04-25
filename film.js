@@ -49,13 +49,15 @@ async function displayMovies(page) {
     card.classList.add('col-md-4', 'mb-4');
 
     card.innerHTML = `
-      <div class="card">
+      <div class="card bg-dark text-light">
         <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" class="card-img-top" alt="${movie.title}">
         <div class="card-body">
           <h5 class="card-title">${movie.title}</h5>
           <p class="card-text">${movie.overview}</p>
-          <a href="detail.html?movieId=${movie.id}" class="btn btn-primary">Détails</a>
-          <button class="btn btn-outline-primary add-to-favorites">Ajouter aux favoris</button>
+          <div class="body-footer border-light border-top">
+            <a href="detail.html?movieId=${movie.id}" class="btn btn-primary">Détails</a>
+            <button class="btn btn-outline-primary add-to-favorites">Ajouter aux favoris</button>
+          </div>
         </div>
       </div>
     `;

@@ -121,20 +121,6 @@ displayRandomMedia();
 
 
 // Fonction pour afficher les films ou les séries les plus populaires
-// Fonction pour récupérer les films et séries les plus populaires
-async function fetchPopularMedia() {
-    try {
-        const movieResponse = await fetch('https://api.themoviedb.org/3/movie/popular?language=fr&page=1', options);
-        const movieData = await movieResponse.json();
-        
-        const seriesResponse = await fetch('https://api.themoviedb.org/3/tv/popular?language=fr&page=1', options);
-        const seriesData = await seriesResponse.json();
-        
-        return { movies: movieData.results, series: seriesData.results };
-    } catch (error) {
-        console.error('Erreur lors de la récupération des données :', error);
-    }
-}
 
 // Fonction pour afficher quatre médias populaires (deux films et deux séries) de manière aléatoire
 async function displayRandomPopularMedia() {
@@ -184,6 +170,7 @@ async function displayMovies(page) {
 
     const moviesData = await fetchPopularMovies(page);
     const movies = moviesData.results.slice(0, 4); // Sélectionnez uniquement les 4 premiers films
+    console.log(movies);
 
     // Ajouter les films aux cartes existantes
     movies.forEach((movie, index) => {
@@ -266,9 +253,10 @@ document.getElementById('myInput').addEventListener('input', async (event) => {
                     const button = document.createElement('button');
                     button.classList.add('btn', 'd-flex', 'align-items-center', 'justify-content-between', 'flex-row-reverse', 'w-100', 'border-bottom', 'm-1');
                     const imageUrl = `https://image.tmdb.org/t/p/w500${result.backdrop_path}`;
+                    
                     button.innerHTML = `
                         <img src="${imageUrl}" width="75px" alt="${result.title}">
-                        <div class="mt-2">${result.title}</div>
+                        <div class="text-light">${result.title}</div>
                     `;
                     button.addEventListener('click', () => {
                         // Action à effectuer lorsque l'utilisateur clique sur le bouton
@@ -277,9 +265,9 @@ document.getElementById('myInput').addEventListener('input', async (event) => {
                     searchResultsContainer.appendChild(button);
                 } else if (!result.backdrop_path && result.title) {
                     const button = document.createElement('button');
-                    button.classList.add('btn', 'd-flex', 'align-items-center', 'justify-content-between', 'flex-row-reverse', 'w-100', 'border-bottom', 'm-1');
+                    button.classList.add('btn', 'd-flex', 'align-items-center', 'justify-content-between', 'flex-row-reverse', 'w-100', 'border-bottom', 'text-light', 'm-1');
                     button.innerHTML = `
-                        <div class="mt-2">${result.title}</div>
+                        <div class="text-light">${result.title}</div>
                     `;
                     button.addEventListener('click', () => {
                         // Action à effectuer lorsque l'utilisateur clique sur le bouton
@@ -304,7 +292,3 @@ displaySeries(currentPageSeries);
 
 // Appeler la fonction pour afficher une donnée de film ou de série aléatoire
 displayRandomMedia();
-
-
-
-
