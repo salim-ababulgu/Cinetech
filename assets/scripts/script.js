@@ -271,6 +271,7 @@ document.getElementById('myInput').addEventListener('input', async (event) => {
                         <div class="mt-2">${result.title}</div>
                     `;
                     button.addEventListener('click', () => {
+                        
                         // Action à effectuer lorsque l'utilisateur clique sur le bouton
                         // Par exemple : rediriger vers la page du film ou de la série
                     });
@@ -297,11 +298,6 @@ document.getElementById('myInput').addEventListener('input', async (event) => {
         searchResultsContainer.innerHTML = ''; // Effacer le contenu si le champ de recherche est vide
     }
 });
-
-
-
-
-
 
 
 
