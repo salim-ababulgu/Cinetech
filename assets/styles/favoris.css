@@ -1,0 +1,45 @@
+
+.bg-blur {
+    backdrop-filter: blur(5px);
+    transition: backdrop-filter 0.5s ease; /* Transition smooth du blur */
+    background-color: #252525; /* Fond sombre */
+  }
+
+
+  /* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width: 992px) {
+  .navigation_un {
+    display: none;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 993px) {
+  .navigation_deux {
+    display: none;
+  }
+
+  
+
+}
+
+body {
+  background: rgb(37,37,37);
+}
+
+.bloc_un, .bloc_deux {
+  height: 100vh;
+}
+
+/* Appliquer le dégradé linéaire sur les blocs contenant l'image */
+.bloc_parent {
+  background: linear-gradient(to top, #181818, rgba(255, 255, 255, 0));
+}
+.bloc_parent img {
+  background: linear-gradient(to top, #181818, rgba(255, 255, 255, 0));
+
+}
+
+h2{
+    color: white;
+}
