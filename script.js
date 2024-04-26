@@ -246,7 +246,7 @@ async function displaySeries(page) {
                         <p class="card-text">${serie.overview}</p>
                     </div>
                     <div class="border-light border-top">
-                        <a href="#" class="card-footer btn btn-dark w-100">Découvrire</a>
+                        <a href="detail.html?movieId=${movie.id}" class="btn btn-primary">Détails</a>
                     </div>
                 </div>
             `;
@@ -262,6 +262,23 @@ displaySeries(currentPageSeries);
 
 
 
+// Récupère le bouton "Détails" en fonction de son identifiant unique
+const detailsButton = document.getElementById('detailsButton');
+
+// Vérifie si le bouton existe
+if (detailsButton) {
+  // Ajoute un écouteur d'événements pour détecter le clic sur le bouton
+  detailsButton.addEventListener('click', function(event) {
+    // Empêche le comportement par défaut du lien
+    event.preventDefault();
+
+    // Récupère l'URL de la page de détails à partir du lien du bouton
+    const detailPageUrl = this.getAttribute('href');
+
+    // Redirige vers la page de détails
+    window.location.href = detailPageUrl;
+  });
+}
 
 
 
