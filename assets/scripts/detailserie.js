@@ -210,27 +210,106 @@ async function getExecutiveProducer(seriesId) {
         </div>
       `;
   
-      // Affichage des critiques
-      let reviewsHTML = '';
-      if (seriesReviews && seriesReviews.results && seriesReviews.results.length > 0) {
-        reviewsHTML = `
-          <div class="row mt-4">
-            <div class="col-12">
-              <h3>Critiques :</h3>
-              <ul class="list-group">
-                ${seriesReviews.results.map(review => `<li class="list-group-item">${review.content}</li>`).join('')}
-              </ul>
-            </div>
-          </div>
-        `;
-      } else {
-        reviewsHTML = "<p class='mt-4'>Aucune critique disponible pour cette série.</p>";
-      }
-  
-      // Insérer les détails et les critiques dans le conteneur
-      seriesDetailsContainer.innerHTML = detailsHTML + reviewsHTML;
-    } else {
-      seriesDetailsContainer.innerHTML = "<p>Les détails de cette série ne sont pas disponibles pour le moment.</p>";
+    // Affichage des critiques de séries
+let seriesReviewsHTML = '';
+if (seriesReviews && seriesReviews.results && seriesReviews.results.length > 0) {
+  seriesReviewsHTML = `
+    <div class="row mt-4">
+      <div class="col-12">
+        <h3>Critiques :</h3>
+        <ul class="list-group">
+          ${seriesReviews.results.map(review => `
+            <li class="list-group-item">
+              <p><strong>Auteur:</strong> ${review.author}</p>
+              <p><strong>Date de publication:</strong> ${new Date(review.created_at).toLocaleDateString()}</p>
+              <p>${review.content}</p>
+            </li>
+          `).join('')}
+        </ul>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-12">
+        <h4>Envoyer un commentaire :</h4>
+        <input id="authorInput" type="text" class="form-control" placeholder="Votre nom">
+        <textarea id="commentInput" class="form-control" placeholder="Votre commentaire"></textarea>
+        <button onclick="addComment()" class="btn btn-primary mt-2">Envoyer</button>
+      </div>
+    </div>
+  `;
+} else {
+  seriesReviewsHTML = `
+    <p class='mt-4'>Aucune critique disponible pour cette série.</p>
+    <div class="row mt-4">
+      <div class="col-12">
+        <h4>Envoyer un commentaire :</h4>
+        <input id="authorInput" type="text" class="form-control" placeholder="Votre nom">
+        <textarea id="commentInput" class="form-control" placeholder="Votre commentaire"></textarea>
+        <button onclick="addComment()" class="btn btn-primary mt-2">Envoyer</button>
+      </div>
+    </div>
+  `;
+}
+
+// Insérer les détails et les critiques dans le conteneur
+seriesDetailsContainer.innerHTML = detailsHTML + seriesReviewsHTML;
+
+// Fonction pour ajouter un commentaire
+function addComment() {
+  const commentInput = document.getElementById('commentInput');
+  const authorInput = document.getElementById('authorInput'); // Nouvelle ligne pour récupérer l'auteur
+  const comment = commentInput.value.trim();
+  const author = authorInput.value.trim(); // Nouvelle ligne pour récupérer l'auteur
+
+  if (comment !== '' && author !== '') {
+    // Récupérer les commentaires existants depuis le stockage local
+    const existingComments = JSON.parse(localStorage.getItem('seriesComments')) || [];
+
+    // Ajouter le nouveau commentaire avec l'auteur et la date de publication
+    const newComment = {
+      author: author,
+      content: comment,
+      created_at: new Date().toISOString() // Utilisation de la date actuelle
+    };
+    existingComments.push(newComment);
+
+    // Mettre à jour le stockage local avec la nouvelle liste de commentaires
+    localStorage.setItem('seriesComments', JSON.stringify(existingComments));
+
+    // Mettre à jour l'affichage des commentaires
+    renderComments();
+
+    // Effacer les champs de saisie
+    commentInput.value = '';
+    authorInput.value = '';
+  }
+}
+
+// Fonction pour afficher les commentaires locaux
+function renderComments() {
+  const existingComments = JSON.parse(localStorage.getItem('seriesComments')) || [];
+  const commentsContainer = document.getElementById('commentsContainer');
+
+  if (existingComments.length > 0) {
+    const commentsHTML = existingComments.map(comment => `
+      <li class="list-group-item">
+        <p><strong>Auteur:</strong> ${comment.author}</p>
+        <p><strong>Date de publication:</strong> ${new Date(comment.created_at).toLocaleDateString()}</p>
+        <p>${comment.content}</p>
+      </li>
+    `).join('');
+    commentsContainer.innerHTML = `
+      <h4>Vos commentaires :</h4>
+      <ul class="list-group">${commentsHTML}</ul>
+    `;
+  } else {
+    commentsContainer.innerHTML = "<p>Aucun commentaire disponible.</p>";
+  }
+}
+
+// Appel initial pour afficher les commentaires existants
+renderComments();
+
     }
   }
   
