@@ -174,9 +174,6 @@ async function displayRandomPopularMedia() {
 displayRandomPopularMedia();
 
 
-
-
-
 // Fonction pour afficher les films sur la page
 async function displayMovies(page) {
     const moviesList = document.getElementById('movies-list');

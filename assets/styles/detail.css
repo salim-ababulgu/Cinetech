@@ -25,7 +25,8 @@ h2 {
     text-align: center;
     margin-bottom: 40px;
     font-size: 36px;
-    margin-top: 100px;
+    margin-top: 140px;
+
 }
 
 /* Style pour les cartes de films similaires */
@@ -73,3 +74,13 @@ h2 {
   background: linear-gradient(to top, #181818, rgba(255, 255, 255, 0));
 
 }
+
+.navbar-brand img {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .navbar-brand img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(255, 3, 3, 0.514);
+  }
+  

@@ -42,4 +42,21 @@ body {
 
 h2{
     color: white;
+    margin-top: 40px;
 }
+
+.card:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 8px rgb(255, 255, 255);
+  }
+  
+  .navbar-brand img {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .navbar-brand img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(255, 3, 3, 0.514);
+  }
+  
