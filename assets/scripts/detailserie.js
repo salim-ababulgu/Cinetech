@@ -234,6 +234,7 @@ async function getExecutiveProducer(seriesId) {
     }
   }
   
+  
   // Charger les détails de la série lors du chargement initial de la page
   displaySeriesDetails();
   
