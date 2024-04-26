@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinetech France - Regardez des séries en ligne, Regardez des films en ligne</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- icon bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Lienvers le css -->
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="shortcut icon" href="./images/cinetech_logo_two.png" type="image/x-icon">
+</head>
+
+<header>
+    <!-- L'appel du navbar ce fait ici -->
+    <div id="navbar"></div>
+</header>
+
+<body class="bg-black bg-gradient">
+  
+    <!-- Bannière d'accueil pour afficher les films et séries aléatoires -->
+    <div class="container-fluid">
+            <div class="row bloc_parent pt-3">
+                <!-- Bloc 1 pour l'image -->
+                <div class="col-md-5 flex-grow-1 d-flex align-items-center justify-content-center bloc_un"></div>
+                <!-- Bloc 2 pour le texte -->
+                <div class="col-md-5 border-none flex-grow-1 h-100 text-light bloc_deux">
+                    <h5 id="random-media-title" class="card-title h-100 fs-1"></h5>
+                    <p id="random-media-overview" class="card-text h-100"></p>
+                </div>
+            </div>
+    </div>
+
+    <!-- Section pour afficher les films / séries populaire -->
+    <section class="m-5">
+        <div class="container">
+            <div  class="text-light d-flex align-items-center justify-content-between">
+                <h1>TENDANCES ACTUELLE</h1>
+                <a href="#" class="text-light">Découvrire plus<i class="bi bi-arrow-right-short"></i></a>
+            </div>
+            <div class="row row-cols-sm-1 row-cols-md-1 row-cols-lg-2 row-cols-xl-4 row-cols-xxl-4 g-4" id="popular-media-list">
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Section pour afficher les films -->
+    <section class="m-5">
+        <div class="container">
+            <div  class="text-light d-flex align-items-center justify-content-between">
+                <h1>FILM</h1>
+                <a href="./film.html" class="text-light">Découvrire plus<i class="bi bi-arrow-right-short"></i></a>
+            </div>
+            <div class="row row-cols-sm-1 row-cols-md-1 row-cols-lg-2 row-cols-xl-4 row-cols-xxl-4 g-4" id="movies-list">
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Section pour afficher les séries -->
+    <section class="m-5">
+        <div class="container">
+            <div  class="text-light d-flex align-items-center justify-content-between">
+                <h1>SERIES</h1>
+                <a href="./series.html" class="text-light">Découvrire plus<i class="bi bi-arrow-right-short"></i></a>
+            </div>
+                <div class="row row-cols-sm-1 row-cols-md-1 row-cols-lg-1 row-cols-xl-4 row-cols-xxl-4 g-4" id="series-list">
+                <!-- Les cartes des séries seront insérées ici -->
+            </div>
+        </div>
+    </section>
+
+        <!-- Modal de recherche -->
+<div class="modal fade" id="modalDeRecherche" tabindex="-1" aria-labelledby="recherche_modal" aria-hidden="true">
+    <div class="modal-dialog modal-lg mt-5">
+      <div class="modal-content bg-dark border border-light">
+        <div class="modal-header gap-3">
+          <div class="border border-black rounded d-flex align-items-center justify-content-center w-100">
+            <input type="text" id="myInput" class="form-control bg-dark border-light border-0 rounded-start text-light" placeholder="Recherche...">
+            <button class="btn btn-outline-secondary rounded-end border border-0" type="button" id="searchButton">
+              <svg style="--bs-icon-link-transform: translate3d(0, -.125rem, 0);" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search text-light" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+              </svg>
+            </button>
+          </div>  
+        </div>
+        <div class="modal-body" id="searchResults"> 
+          <!-- Message de recherche -->
+          <div id="searchMessage" class="search-message text-center fw-bold text-tangerin text-light">Rechercher une recette en tapant le nom ou son ingrédient</div>
+          <!-- Conteneur pour les éléments d'autocomplétion -->
+          <div id="autocompleteContainer" class="list-group mt-1"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <footer>
+        <!-- L'appel du navbar ce fait ici -->
+        <div id="footer"></div>
+    </footer>
+
+
+
+    <!-- L'appel du footer ce fait ici -->
+    <div id="mon_footer"></div>
+
+        <!-- Chargement du footer -->
+        <div id="chargementDuFooter"></div>
+
+
+        <!-- Bootstrap JS (Optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Appel de l'API -->
+        <script src="./script.js"></script>
+
+        <script src="shearch.js"></script>
+
+        <!-- Appel nu navbar -->
+        <script src="./navbar.js"></script>
+
+        <!-- Appel du footer -->
+        <script src="./footer.js"></script>
+
+        <!-- Appel de la page de géneration des detail pour les film -->
+        <!-- <script src="./detail.js"></script> -->
+
+        <!-- Appel de la page de géneration des detail pour les séries -->
+        <!-- <script src="detailserie.js"></script> -->
+
+    </body>
+</html>
