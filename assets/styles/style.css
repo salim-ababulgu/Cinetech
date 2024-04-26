@@ -26,22 +26,29 @@
   }
 
 
-  /* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (max-width: 992px) {
-  .navigation_un {
-    display: none;
-  }
-}
-
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 993px) {
-  .navigation_deux {
-    display: none;
-  }
-
+  /* = ou - a 992px */
+  @media only screen and (max-width: 992px) {
+    .navigation_un {
+      display: none;
+    }
   
-
-}
+    .bloc_un {
+      width: 50%;
+    }
+  
+  }
+  
+  /* + ou = à 992px*/
+  @media only screen and (min-width: 993px) {
+    .navigation_deux {
+      display: none;
+    }
+  
+    .bloc_un, .bloc_deux {
+      height: 100vh;
+    }  
+  
+  }
 
 body {
   background: rgb(37,37,37);

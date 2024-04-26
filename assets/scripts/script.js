@@ -91,14 +91,14 @@ async function displayRandomMedia() {
 
         // Créer le contenu pour le bloc 1 avec l'image
         const blocUnContent = `
-            <div class="col-md-5 w-50 bloc_un flex-grow-1 d-flex align-items-center">
-                <img src="https://image.tmdb.org/t/p/w500${randomMedia.poster_path}" class="card-img-landing" alt="${isMovie ? randomMedia.title : randomMedia.name}">
+            <div class="col-md-5 bloc_un flex-grow-1 d-flex align-items-center">
+                <img src="https://image.tmdb.org/t/p/w500${randomMedia.poster_path}" class="card-img-landing img-fluid" alt="${isMovie ? randomMedia.title : randomMedia.name}">
             </div>
         `;
 
         // Créer le contenu pour le bloc 2 avec le texte
         const blocDeuxContent = `
-            <div class="col-md-5 text-light w-50 border-none bloc_deux flex-grow-1 d-flex justify-content-center flex-column p-5">
+            <div class="col-md-5 text-light border-none bloc_deux flex-grow-1 d-flex justify-content-center flex-column p-5">
                 <h5 class="card-title text">${isMovie ? randomMedia.title : randomMedia.name}</h5> 
                 <p class="card-text">${randomMedia.overview}</p>
                 <p class="card-text"><small>Last updated 3 mins ago</small></p>
