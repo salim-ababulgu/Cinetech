@@ -31,8 +31,6 @@ async function fetchPopularSeries(page) {
     }
 }
 
-
-
 async function displayPopularMedia(mediaType, page) {
     const mediaList = document.getElementById(`${mediaType}-list`);
     mediaList.innerHTML = ''; // Effacer les médias précédents
@@ -69,8 +67,6 @@ async function displayPopularMedia(mediaType, page) {
         console.error(`Erreur lors de la récupération et de l'affichage des médias ${mediaType === 'movies' ? 'de film' : 'de série'} :`, error);
     }
 }
-
-
 
 // Fonction pour afficher une donnée de film ou de série aléatoire
 async function displayRandomMedia() {
@@ -115,10 +111,6 @@ async function displayRandomMedia() {
 
 // Appeler la fonction pour afficher une donnée de film ou de série aléatoire
 displayRandomMedia();
-
-
-
-
 
 // Fonction pour afficher les films ou les séries les plus populaires
 // Fonction pour récupérer les films et séries les plus populaires
@@ -173,7 +165,6 @@ async function displayRandomPopularMedia() {
 // Appeler la fonction pour afficher les médias populaires
 displayRandomPopularMedia();
 
-
 // Fonction pour afficher les films sur la page
 async function displayMovies(page) {
     const moviesList = document.getElementById('movies-list');
@@ -201,8 +192,6 @@ async function displayMovies(page) {
         moviesList.appendChild(card);
     });
 }
-
-
 
 // Fonction pour afficher les séries sur la page
 async function displaySeries(page) {
@@ -232,7 +221,6 @@ async function displaySeries(page) {
     });
 }
 
-
 // Fonction pour effectuer la recherche de films et séries
 async function searchMoviesAndSeries(query) {
     try {
@@ -244,7 +232,6 @@ async function searchMoviesAndSeries(query) {
     }
 }
 
-// Fonction pour effectuer une recherche en temps réel à chaque frappe de clavier
 // Fonction pour effectuer une recherche en temps réel à chaque frappe de clavier
 document.getElementById('myInput').addEventListener('input', async (event) => {
     const searchTerm = event.target.value.trim(); // Récupérer le terme de recherche
@@ -296,14 +283,13 @@ document.getElementById('myInput').addEventListener('input', async (event) => {
     }
 });
 
-
-
 // Charger les films et les séries de la première page lors du chargement initial
 displayMovies(currentPageMovies);
 displaySeries(currentPageSeries);
 
 // Appeler la fonction pour afficher une donnée de film ou de série aléatoire
 displayRandomMedia();
+
 
 
 

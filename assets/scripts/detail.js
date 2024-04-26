@@ -185,6 +185,7 @@ async function displayMovieDetails() {
 } else {
   movieDetailsContainer.innerHTML = "<p>Les détails de ce film ne sont pas disponibles pour le moment.</p>";
 }
+
 }
 
   async function fetchMovieReviews(movieId) {
