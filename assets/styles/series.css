@@ -1,0 +1,64 @@
+.card-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limite à 3 lignes de texte */
+    -webkit-box-orient: vertical;
+  }
+
+  
+  .bg-blur {
+    backdrop-filter: blur(5px);
+    transition: backdrop-filter 0.5s ease; /* Transition smooth du blur */
+    background-color: #252525; /* Fond sombre */
+  }
+
+
+  /* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width: 992px) {
+  .navigation_un {
+    display: none;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 993px) {
+  .navigation_deux {
+    display: none;
+  }
+
+  
+
+}
+
+body {
+  background: rgb(37,37,37);
+}
+
+.bloc_un, .bloc_deux {
+  height: 100vh;
+}
+
+/* Appliquer le dégradé linéaire sur les blocs contenant l'image */
+.bloc_parent {
+  background: linear-gradient(to top, #181818, rgba(255, 255, 255, 0));
+}
+.bloc_parent img {
+  background: linear-gradient(to top, #181818, rgba(255, 255, 255, 0));
+
+}
+
+.card:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 8px rgb(255, 255, 255);
+}
+
+.navbar-brand img {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navbar-brand img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(255, 3, 3, 0.514);
+}
